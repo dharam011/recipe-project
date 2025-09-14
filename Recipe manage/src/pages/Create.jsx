@@ -3,9 +3,11 @@ import { useForm } from "react-hook-form";
 import { nanoid } from "nanoid";
 import { recipecontext } from "../context/RecipeContext";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 
 const Create = () => {
+  const navigate= useNavigate();
   const {
     register,
     handleSubmit,
@@ -23,6 +25,7 @@ const Create = () => {
     
     setdata([...data, recipe])
     reset();
+    navigate("/recipe");
   };
   return (
     <div className="create flex flex-col justify-center items-center mt-15">
@@ -88,8 +91,9 @@ const Create = () => {
           className="instruction block border-b outline-0 p-2 "
           {...register("instructions")}
           type="text"
-          placeholder="//Give Intructions"
-        ></textarea>
+          placeholder="//Give Intructions">
+
+        </textarea>
       
 
         <button className="mt-5 block text-sm bg-gray-900 px-2 py-2 rounded">Save Recipe</button>
