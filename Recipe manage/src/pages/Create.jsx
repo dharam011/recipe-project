@@ -28,7 +28,8 @@ const Create = () => {
     navigate("/recipe");
   };
   return (
-    <div className="create flex flex-col justify-center items-center mt-15">
+    <div className="create h-full flex flex-col justify-center items-center  ">
+      <h1 className="text-xl font-thin m-6 py-2 px-8 rounded text-white  ">Create Recipe</h1>
       <form className="create-form flex-col flex justify-center" onSubmit={handleSubmit(submitHandler)}>
         <input
           className="create-form outline-0 border-b p-2 block "
@@ -96,7 +97,7 @@ const Create = () => {
         </textarea>
       
 
-        <button className="mt-5 block text-sm bg-gray-900 px-2 py-2 rounded">Save Recipe</button>
+        <button className="mt-5 block text-sm bg-gradient-to-r from-orange-500 to-blue-950 px-2 py-2 rounded">Save Recipe</button>
       </form>
     </div>
   );

@@ -21,18 +21,18 @@ const RecipeCard = (props) => {
         className="w-24 h-24 object-cover rounded-full border-4  "
         alt={title}
       />
-      <h1 className="text-2xl text-green-800 capitalize font-semibold mt-2">
+      <h1 className="text-3xl text-white capitalize font-semibold mt-2">
         {title}
       </h1>
       <h2 className="text-md text-gray-100 font-light">
         By Chef {Chef}
       </h2>
-      <h3 className="text-xs text-gray-500 font-thin">
+      <h3 className="text-xs text-gray-800 font-thin">
         Category: {catagory}
       </h3>
       <p className="text-sm px-2 text-gray-300 font-light">
         {description.slice(0, 50)}...{""}
-        <small className='text-blue-500'>more</small>
+        <small className='text-sm font-thin text-cyan-950'>read more</small>
       </p>
 
     </Link>

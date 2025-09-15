@@ -8,7 +8,7 @@ const Recipe = () => {
    <RecipeCard key={recipe.id} recipe={recipe}/>
   ));
   return (
-    <div className="mt-5 card flex flex-col items-center w-full bg-gray-800">
+    <div className="mt-5 h-full card flex flex-col items-center w-full bg-gray-800">
       <h1 className="text-4xl font-bold text-green-700 mb-2">
         Delicious Recipes Collection
       </h1>

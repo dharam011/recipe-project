@@ -4,7 +4,18 @@
   flex-direction: column;
   width:100%;
   height: 100%;
-}#root{
+}
+#root{
+  width: 100%;
+  height: 100%;
+}
+.singleR{
+  display: flex;
+  flex-direction: column;
+  gap: 10%;
+ 
+}
+.singleR .left img{
   width: 100%;
   height: 100%;
 }
