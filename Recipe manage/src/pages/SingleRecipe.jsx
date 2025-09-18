@@ -21,25 +21,28 @@ const SingleRecipe = () => {
     reset,
   } = useForm({
     defaultValues: {
-      title: recipe.title,
-      image: recipe.image,
-      Chef: recipe.Chef,
-      catagory: recipe.catagory,
-      description: recipe.description,
-      ingredients: recipe.ingredients,
-      instructions: recipe.instructions,
+      title: recipe?.title,
+      image: recipe?.image,
+      Chef: recipe?.Chef,
+      catagory: recipe?.catagory,
+      description: recipe?.description,
+      ingredients: recipe?.ingredients,
+      instructions: recipe?.instructions,
     },
   });
 
-  const submitHandler = (updatedRecipe) => {
+  const updateHandler = (updatedRecipe) => {
     const index = data.findIndex((r) => params.id === r.id);
     if (index === -1) return;
     const copydata = [...data];
     copydata[index] = { ...copydata[index], ...updatedRecipe };
     setdata(copydata);
+    localStorage.setItem("recipes", JSON.stringify(copydata));
+
+
     toast.success("Recipe updated successfully");
     reset();
-   
+
     console.log(data);
   };
 
@@ -47,13 +50,47 @@ const SingleRecipe = () => {
     const filterData = data.filter((r) => r.id !== params.id);
     toast.success("Recipe deleted successfully");
     setdata(filterData);
+    localStorage.setItem("recipes", JSON.stringify(filterData));
     navigate("/recipe");
   };
 
+  const favourite = JSON.parse(localStorage.getItem("fav")) || [];
+  const isFav = favourite.some(fav => fav.id === recipe.id);
+  const FavoriteHandeler = (recipe) => {
+    if (!isFav) {
+      const updatedFav = [...favourite, recipe];
+      localStorage.setItem("fav", JSON.stringify(updatedFav));
+      toast.success("Added to favorites");
+    }
+  };
+  const unfavHandeler = (recipe) => {
+    if (isFav) {
+      const updatedFav = favourite.filter(fav => fav.id !== recipe.id);
+      localStorage.setItem("fav", JSON.stringify(updatedFav));
+      toast.success("Removed from favorites");
+    }
+  };
+
+
   return recipe ? (
     <div className="singleR flex justify-center gap-30  mt-5">
-      <div className="left text-white bg-orange-400  p-5 ">
-        <h1 className="text-5xl font-bold capitalize">{recipe.title}</h1>
+      <div className=" relative left text-white bg-orange-400  pt-10 px-4 ">
+        {
+          isFav ? (
+            <i
+              onClick={() => unfavHandeler(recipe)}
+              className="absolute top-2 right-2 text-3xl ri-heart-fill cursor-pointer"
+              title="Remove from favorites"
+            ></i>
+          ) : (
+            <i
+              onClick={() => FavoriteHandeler(recipe)}
+              className="absolute top-2 right-2 text-3xl ri-heart-line cursor-pointer"
+              title="Add to favorites"
+            ></i>
+          )
+        }
+        <h1 className=" text-5xl font-bold capitalize">{recipe.title}</h1>
         <img
           className="w-[30vw] object-cover mt-2 rounded h-[30vh]"
           src={recipe.image}
@@ -73,7 +110,7 @@ const SingleRecipe = () => {
       <div className="right mt-10 ">
         <form
           className="create-form flex-col flex justify-center"
-          onSubmit={handleSubmit(submitHandler)}
+          onSubmit={handleSubmit(updateHandler)}
         >
           <input
             className="create-form outline-0 border-b p-2 block "
@@ -163,7 +200,7 @@ const SingleRecipe = () => {
             {...register("ingredients")}
             type="text"
             placeholder=" //ingradients used"
-            // defaultValue={recipe.ingredients}
+          // defaultValue={recipe.ingredients}
           ></textarea>
 
           <textarea
@@ -171,7 +208,7 @@ const SingleRecipe = () => {
             {...register("instructions")}
             type="text"
             placeholder="//Give Intructions"
-            // defaultValue={recipe.instructions}
+          // defaultValue={recipe.instructions}
           ></textarea>
           <div className="btn flex justify-between gap-5">
             <button

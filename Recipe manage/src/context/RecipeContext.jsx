@@ -1,17 +1,21 @@
-import React, { createContext,useState } from 'react'
-export const recipecontext = createContext(null)
+import React, { createContext, useEffect, useState } from "react";
+export const recipecontext = createContext(null);
+
 
 const RecipeContext = (props) => {
-
-  
-  const [data, setdata] = useState([])  
-    console.log(data)
-  return (
+  const [data, setdata] = useState([]);
+  console.log(data);
+  useEffect(() => {
     
-    <recipecontext.Provider value={{data, setdata}}>
+    console.log("mounted");
+    setdata(JSON.parse(localStorage.getItem("recipes")) || []);
+  }, []);
+
+  return (
+    <recipecontext.Provider value={{ data, setdata }}>
       {props.children}
     </recipecontext.Provider>
-  )
-}
+  );
+};
 
-export default RecipeContext
+export default RecipeContext;
