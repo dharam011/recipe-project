@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { recipecontext } from "../context/RecipeContext";
 
@@ -54,22 +54,36 @@ const SingleRecipe = () => {
     navigate("/recipe");
   };
 
-  const favourite = JSON.parse(localStorage.getItem("fav")) || [];
+
+
+  
+  const [favourite, setfavourite] = useState(
+    JSON.parse(localStorage.getItem("fav")) || [])
   const isFav = favourite.some(fav => fav.id === recipe.id);
   const FavoriteHandeler = (recipe) => {
-    if (!isFav) {
+    // if (!isFav) {
       const updatedFav = [...favourite, recipe];
       localStorage.setItem("fav", JSON.stringify(updatedFav));
+      setfavourite(updatedFav);
       toast.success("Added to favorites");
-    }
+    // }
   };
   const unfavHandeler = (recipe) => {
     if (isFav) {
       const updatedFav = favourite.filter(fav => fav.id !== recipe.id);
+      setfavourite(updatedFav);
       localStorage.setItem("fav", JSON.stringify(updatedFav));
       toast.success("Removed from favorites");
     }
   };
+  useEffect(() => {
+    console.log("mounted");
+    return() => {
+      console.log("unmounted");
+    };
+   
+  }, [favourite]);
+
 
 
   return recipe ? (
