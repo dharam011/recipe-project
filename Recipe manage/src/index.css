@@ -1,31 +1,190 @@
 @import "tailwindcss";
+
+/* Prevent horizontal scroll */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Custom styles for enhanced UI */
+.recipe-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.recipe-card:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(34, 197, 94, 0.2);
+}
+
+/* Ensure consistent grid layout for 3 recipes per row */
+@media (min-width: 1024px) {
+  .recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .recipe-card {
+    max-width: none;
+    width: 100%;
+  }
+}
+
+/* Line clamp utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Form enhancements */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(34, 197, 94, 0.5);
+}
+
+/* Custom scrollbar for textareas */
+.form-group textarea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.form-group textarea::-webkit-scrollbar-track {
+  background: #374151;
+  border-radius: 3px;
+}
+
+.form-group textarea::-webkit-scrollbar-thumb {
+  background: #22c55e;
+  border-radius: 3px;
+}
+
+.form-group textarea::-webkit-scrollbar-thumb:hover {
+  background: #16a34a;
+}
+
+/* Mobile responsive styles */
 @media (max-width: 432px) {
-.Items{
-  flex-direction: column;
-  width:100%;
-  height: 100%;
-}
-.navBAR{
-  display: flex;
-  gap: 15px;
-  font-size: 1rem;
+  .Items{
+    flex-direction: column;
+    width:100%;
+    height: 100%;
+  }
+  .navBAR{
+    display: flex;
+    gap: 15px;
+    font-size: 1rem;
+  }
+
+  #root{
+    width: 100%;
+    height: 100%;
+  }
+  /* Single recipe page responsive */
+  .single-recipe .grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  .single-recipe .max-w-6xl {
+    max-width: 100% !important;
+    padding: 0 1rem;
+  }
+
+  /* Home, About and Favorites page responsive adjustments */
+  .hero-section h1 {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+
+  /* Favorites empty state responsive */
+  .text-8xl {
+    font-size: 4rem !important;
+  }
+
+  .features-section .grid,
+  .values-section .grid,
+  .team-section .grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .feature-card,
+  .value-card,
+  .team-member {
+    padding: 1.5rem;
+  }
+
+  .stats-section .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  /* Recipe card responsive adjustments */
+  .recipe-card {
+    max-width: 100% !important;
+    margin: 0 auto;
+  }
+
+  .recipe-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  /* Form responsive adjustments */
+  .form-group label {
+    font-size: 0.875rem;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+  }
 }
 
-#root{
-  width: 100%;
-  height: 100%;
-}
-.singleR{
-  display: flex;
-  flex-direction: column;
-  gap: 10%;
- 
-}
-.singleR .left img{
-  width: 100%;
-  height: 100%;
-}
+/* Tablet responsive styles */
+@media (max-width: 768px) and (min-width: 433px) {
+  .hero-section h1 {
+    font-size: 3.5rem;
+  }
 
+  .features-section .grid,
+  .values-section .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .team-section .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stats-section .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Tablet recipe grid - 2 per row */
+  .recipe-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
+  }
 }
 
 
